@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StartupHub | Empower Your Startup Journey</title>
+  
+<script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+  <!-- AOS Stylesheet -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+
+<!-- AOS Script -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+  
+  <!-- AOS for scroll animations -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <!-- Lottie Player -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+
+
+  <style>
+    /* Custom global styles */
+    body {
+      background-color: white;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    /* Custom cursor */
+    .cursor {
+      position: fixed;
+      top: 0; left: 0;
+      width: 20px; height: 20px;
+      background-color: rgba(59, 130, 246, 0.7);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+      z-index: 9999;
+      mix-blend-mode: difference;
+    }
+    .cursor.active {
+      width: 40px;
+      height: 40px;
+      background-color: rgba(59, 130, 246, 0.9);
+    }
+    /* Subtle background animation */
+    .background-blur {
+      position: fixed;
+      top: -100px; left: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle at center, #3b82f6, transparent 70%);
+      filter: blur(100px);
+      opacity: 0.3;
+      animation: moveBlur 20s ease-in-out infinite alternate;
+      z-index: -1;
+      border-radius: 50%;
+    }
+    @keyframes moveBlur {
+      0% { transform: translate(0,0); }
+      100% { transform: translate(100px, 50px); }
+    }
+  </style>
+  
+  <style>
+  /* Hide default scrollbar */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Additional hover effects */
+  .testimonial-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .testimonial-card:hover {
+    transform: scale(1.07) translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .testimonial-card:hover .client-name {
+    color: #3b82f6; /* Tailwind blue-500 */
+  }
+</style>
+
+</head>
+<body>
+
+<header x-data="{ open: false }" class="sticky top-0 z-50 bg-gray-900 shadow-md">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center text-white font-bold text-xl tracking-wide hover:text-indigo-400 transition">
+        StartupHub
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex space-x-8">
+        <a href="home.html" class="text-gray-300 hover:text-indigo-400 transition">Home</a>
+        <a href="about.html" class="text-gray-300 hover:text-indigo-400 transition">About</a>
+        <a href="startups.html" class="text-gray-300 hover:text-indigo-400 transition">Startups</a>
+        <a href="events.html" class="text-gray-300 hover:text-indigo-400 transition">Events</a>
+        <a href="blog.html" class="text-gray-300 hover:text-indigo-400 transition">Blog</a>
+        <a href="support.html" class="text-gray-300 hover:text-indigo-400 transition">Support</a>
+        <a href="mentors.html" class="text-gray-300 hover:text-indigo-400 transition">Mentors</a>
+        <a href="community.html" class="text-gray-300 hover:text-indigo-400 transition">Community</a>
+        <a href="contact.html" class="text-gray-300 hover:text-indigo-400 transition">Contact</a>
+      </nav>
+
+      <!-- Join Now Button -->
+      <div class="hidden md:flex">
+        <a href="join.html" 
+           class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-md font-semibold hover:bg-indigo-500 transition">
+          Join Now
+        </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button @click="open = !open" class="md:hidden flex items-center text-gray-300 hover:text-indigo-400 focus:outline-none">
+        <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg x-show="open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Mobile Nav Menu -->
+  <nav x-show="open" 
+       x-transition 
+       @click.away="open = false" 
+       class="md:hidden bg-gray-800 text-gray-300 space-y-2 px-4 py-4">
+    <a href="home.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">Home</a>
+    <a href="about.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">About</a>
+    <a href="startups.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">Startups</a>
+    <a href="events.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">Events</a>
+    <a href="blog.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">Blog</a>
+    <a href="support.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">Support</a>
+    <a href="mentors.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">Mentors</a>
+    <a href="community.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">Community</a>
+    <a href="contact.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">Contact</a>
+    <a href="join.html" class="block bg-indigo-600 text-white px-4 py-2 rounded-md font-semibold text-center hover:bg-indigo-500 transition">Join Now</a>
+  </nav>
+</header>
+
+
+  <div class="background-blur"></div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+
+  <main class="container mx-auto px-6 lg:px-20 min-h-screen flex items-center">
+    <section class="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
+    
+    <section class="w-full min-h-screen bg-white py-20 relative overflow-hidden">
+  <!-- Pattern Background -->
+  <div class="absolute inset-0 bg-[radial-gradient(#e0e7ff_1px,transparent_1px)] [background-size:18px_18px] opacity-60 z-0"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6">
+    <!-- Section Header -->
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold text-indigo-700 mb-2">Community Forums</h2>
+      <p class="text-gray-600">Engage in discussions, ask questions, and collaborate with fellow creators.</p>
+    </div>
+
+    <!-- Search + Filter Bar -->
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+      <div class="flex w-full md:w-2/3 relative">
+        <input type="text" placeholder="Search forum topics..." class="w-full border border-gray-300 px-5 py-3 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <span class="absolute right-4 top-1/2 -translate-y-1/2 text-indigo-600">
+          <i class="fas fa-search"></i>
+        </span>
+      </div>
+      <div>
+        <button id="filterToggle" class="bg-indigo-100 text-indigo-700 px-5 py-2 rounded-full hover:bg-indigo-200 transition">
+          <i class="fas fa-filter mr-2"></i> Filter
+        </button>
+      </div>
+    </div>
+
+    <!-- Filter Board (hidden by default) -->
+    <div id="filterBoard" class="hidden bg-indigo-50 p-6 rounded-lg shadow mb-10">
+      <h3 class="text-lg font-semibold text-indigo-700 mb-4">Filter by Category</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-4">
+        <label class="flex items-center gap-2"><input type="checkbox"> General</label>
+        <label class="flex items-center gap-2"><input type="checkbox"> AI</label>
+        <label class="flex items-center gap-2"><input type="checkbox"> Startups</label>
+        <label class="flex items-center gap-2"><input type="checkbox"> Projects</label>
+        <label class="flex items-center gap-2"><input type="checkbox"> Events</label>
+        <label class="flex items-center gap-2"><input type="checkbox"> Career</label>
+      </div>
+      <button class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700">Apply Filters</button>
+    </div>
+
+    <!-- Forum Cards -->
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div class="bg-white border border-gray-200 p-6 rounded-xl shadow hover:shadow-md transition">
+        <h4 class="text-lg font-semibold text-indigo-800 mb-2">How to start an AI project?</h4>
+        <p class="text-sm text-gray-600 mb-3">Tips, resources, and guidance for building your first AI-based project.</p>
+        <a href="#" class="text-indigo-600 font-medium hover:underline">Join Discussion →</a>
+      </div>
+      <div class="bg-white border border-gray-200 p-6 rounded-xl shadow hover:shadow-md transition">
+        <h4 class="text-lg font-semibold text-indigo-800 mb-2">Best tools for prototype design?</h4>
+        <p class="text-sm text-gray-600 mb-3">Let’s talk about Figma, Framer, and other rapid UI/UX tools.</p>
+        <a href="#" class="text-indigo-600 font-medium hover:underline">Join Discussion →</a>
+      </div>
+      <div class="bg-white border border-gray-200 p-6 rounded-xl shadow hover:shadow-md transition">
+        <h4 class="text-lg font-semibold text-indigo-800 mb-2">Startup funding tips?</h4>
+        <p class="text-sm text-gray-600 mb-3">Where to pitch, what to present, and how to build your case.</p>
+        <a href="#" class="text-indigo-600 font-medium hover:underline">Join Discussion →</a>
+      </div>
+    </div>
+  </div>
+</section>
+    
+    </main>
+    
+    <section class="w-full bg-gray-50 py-20 relative overflow-hidden">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 bg-[radial-gradient(#cbd5e150_1px,transparent_1px)] [background-size:20px_20px] z-0"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6">
+    <!-- Section Header -->
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-indigo-700">Top Contributors</h2>
+      <p class="text-gray-600 mt-2">Our most active community members</p>
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-white rounded-xl shadow hover:shadow-lg p-6 flex items-center gap-4 border border-indigo-100">
+        <div class="text-2xl font-bold text-indigo-600">#1</div>
+        <img src="https://i.pravatar.cc/80?img=1" alt="User" class="w-14 h-14 rounded-full border-2 border-indigo-500" />
+        <div>
+          <h4 class="font-semibold text-lg">Ravi Teja</h4>
+          <p class="text-sm text-gray-500">128 posts · 64 replies</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow hover:shadow-lg p-6 flex items-center gap-4 border border-indigo-100">
+        <div class="text-2xl font-bold text-indigo-600">#2</div>
+        <img src="https://i.pravatar.cc/80?img=2" alt="User" class="w-14 h-14 rounded-full border-2 border-indigo-500" />
+        <div>
+          <h4 class="font-semibold text-lg">Ananya Rao</h4>
+          <p class="text-sm text-gray-500">110 posts · 78 replies</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow hover:shadow-lg p-6 flex items-center gap-4 border border-indigo-100">
+        <div class="text-2xl font-bold text-indigo-600">#3</div>
+        <img src="https://i.pravatar.cc/80?img=3" alt="User" class="w-14 h-14 rounded-full border-2 border-indigo-500" />
+        <div>
+          <h4 class="font-semibold text-lg">Imran Khan</h4>
+          <p class="text-sm text-gray-500">89 posts · 56 replies</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="w-full py-20 bg-white relative">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 bg-[radial-gradient(#e2e8f080_1px,transparent_1px)] [background-size:22px_22px] z-0"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6">
+    <!-- Section Heading -->
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-indigo-700">Featured Threads</h2>
+      <p class="text-gray-600 mt-2">Highlighted discussions from our forums</p>
+    </div>
+
+    <!-- Thread Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Thread Card 1 -->
+      <div class="bg-gray-50 border border-indigo-100 hover:shadow-lg rounded-xl p-5 transition">
+        <h4 class="text-lg font-semibold text-indigo-700 mb-2">🚀 How to Get Started with Drone Prototyping</h4>
+        <p class="text-gray-600 text-sm mb-4">Let's talk about building your first quadcopter. I’ve been working on one using Arduino...</p>
+        <a href="#" class="text-indigo-500 text-sm font-medium hover:underline">Join Discussion →</a>
+      </div>
+
+      <!-- Thread Card 2 -->
+      <div class="bg-gray-50 border border-indigo-100 hover:shadow-lg rounded-xl p-5 transition">
+        <h4 class="text-lg font-semibold text-indigo-700 mb-2">💡 Best Tools for UI/UX Design in 2025</h4>
+        <p class="text-gray-600 text-sm mb-4">Figma vs. Framer vs. Penpot. Share your current stack and why you use it...</p>
+        <a href="#" class="text-indigo-500 text-sm font-medium hover:underline">Join Discussion →</a>
+      </div>
+
+      <!-- Thread Card 3 -->
+      <div class="bg-gray-50 border border-indigo-100 hover:shadow-lg rounded-xl p-5 transition">
+        <h4 class="text-lg font-semibold text-indigo-700 mb-2">🧠 How AI Is Changing Mechanical Engineering</h4>
+        <p class="text-gray-600 text-sm mb-4">Can we integrate machine learning into CAD workflows? Let’s explore the real-time applications...</p>
+        <a href="#" class="text-indigo-500 text-sm font-medium hover:underline">Join Discussion →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="w-full py-20 bg-gray-50 relative">
+  <!-- Background pattern -->
+  <div class="absolute inset-0 bg-[radial-gradient(#cbd5e180_1px,transparent_1px)] [background-size:24px_24px] z-0"></div>
+
+  <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
+    <!-- Heading -->
+    <h2 class="text-3xl font-bold text-indigo-700 mb-4">Have a Question?</h2>
+    <p class="text-gray-600 mb-8">Get help from experts, peers, and mentors in our community. Start a thread and share your doubts!</p>
+
+    <!-- Input Area -->
+    <div class="bg-white p-6 rounded-xl shadow-md border border-indigo-100">
+      <textarea
+        rows="5"
+        placeholder="Type your question here..."
+        class="w-full border border-gray-300 rounded-md p-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+      ></textarea>
+      <button
+        class="mt-4 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md font-medium transition"
+      >
+        Post Question
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="w-full py-24 bg-gray-50 relative">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 bg-[radial-gradient(#a5b4fc20_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none"></div>
+
+  <div
+    class="relative max-w-3xl mx-auto bg-white border border-indigo-300 rounded-xl shadow-lg p-12 text-center transition-transform transform hover:-translate-y-3"
+  >
+    <h2 class="text-4xl font-extrabold text-indigo-700 mb-6">
+      Join Our Thriving Community
+    </h2>
+    <p class="text-indigo-600 mb-10 text-lg">
+      Stay updated, get support, and connect with mentors and peers. Let’s grow together.
+    </p>
+    <button
+      class="inline-block px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition"
+      type="button"
+    >
+      Join Now
+    </button>
+  </div>
+</section>
+
+    
+    
+    <footer class="bg-gray-900 text-white py-16 relative overflow-hidden">
+  <!-- Decorative background elements -->
+  <div class="absolute top-[-4rem] left-[-5rem] w-72 h-72 bg-purple-700 opacity-20 rounded-full blur-3xl -z-10"></div>
+  <div class="absolute bottom-[-5rem] right-[-5rem] w-96 h-96 bg-blue-500 opacity-10 rounded-full blur-2xl -z-10"></div>
+
+  <div class="max-w-7xl mx-auto px-6 md:px-20 grid md:grid-cols-3 gap-12">
+
+    <!-- Connect With Us -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4 text-blue-400">Connect With Us</h3>
+      <ul class="space-y-3 text-gray-300 text-sm">
+        <li class="flex items-start gap-3">
+          <i class="fa-solid fa-envelope text-blue-300 pt-1"></i>
+          <span>hello@startuphub.com</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <i class="fa-solid fa-phone text-blue-300 pt-1"></i>
+          <span>+91 98765 43210</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <i class="fa-solid fa-location-dot text-blue-300 pt-1"></i>
+          <span>Chennai, Tamil Nadu, India</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Newsletter Subscription -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4 text-blue-400">Stay Updated</h3>
+      <p class="text-gray-400 text-sm mb-4">Join our newsletter to receive the latest startup trends and updates.</p>
+      <form class="flex flex-col sm:flex-row gap-3">
+        <input type="email" placeholder="Enter your email"
+          class="w-full px-4 py-3 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+        <button
+          class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-full transition hover:scale-105 text-sm">
+          Subscribe
+        </button>
+      </form>
+    </div>
+
+    <!-- Footer Notes -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4 text-blue-400">Let's Get Social</h3>
+      <p class="text-gray-400 text-sm mb-4">Follow us and stay connected with the community.</p>
+      <div class="flex gap-5 text-xl">
+        <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Divider -->
+  <div class="mt-14 border-t border-gray-700 pt-6 text-center text-gray-500 text-xs max-w-7xl mx-auto px-6 md:px-20">
+    &copy; 2025 StartupHub. All rights reserved.
+  </div>
+</footer>
+
+
+
+
+
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    // Initialize AOS library
+    AOS.init({
+      once: true,
+      easing: 'ease-out-cubic',
+      duration: 1000,
+    });
+
+    // Custom cursor logic
+    const cursor = document.getElementById('cursor');
+    window.addEventListener('mousemove', e => {
+      cursor.style.top = e.clientY + 'px';
+      cursor.style.left = e.clientX + 'px';
+    });
+
+    // Cursor active state on buttons
+    const buttons = document.querySelectorAll('a, button');
+    buttons.forEach(btn => {
+      btn.addEventListener('mouseenter', () => cursor.classList.add('active'));
+      btn.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+    });
+
+    // GSAP entry animation for headline & buttons
+    gsap.from("h1", { y: -50, opacity: 0, duration: 1, ease: "power3.out" });
+    gsap.from("p", { y: 50, opacity: 0, duration: 1, delay: 0.2, ease: "power3.out" });
+    gsap.from(".btn-primary", { scale: 0.8, opacity: 0, duration: 0.7, delay: 0.4, ease: "back.out(1.7)" });
+    gsap.from(".btn-secondary", { scale: 0.8, opacity: 0, duration: 0.7, delay: 0.6, ease: "back.out(1.7)" });
+  </script>
+  
+  <script>
+  // Initialize AOS animations
+  AOS.init({
+    duration: 1200,
+    once: true,
+  });
+</script>
+
+
+</body>
+</html>
+

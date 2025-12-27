@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Join - Login / Signup</title>
+  <!-- Official Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lottie player -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+  <style>
+    .hidden { display: none; }
+    .toggle-active {
+      border-bottom: 3px solid #6366f1; /* Indigo-500 */
+      font-weight: 600;
+      color: #4f46e5; /* Indigo-700 */
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
+
+  <div class="bg-white rounded-xl shadow-lg max-w-4xl w-full p-8 flex flex-col md:flex-row items-center md:items-start gap-8">
+
+    <!-- Illustration Section -->
+    <div class="hidden md:flex flex-1 justify-center items-center">
+      <lottie-player
+        src="https://assets7.lottiefiles.com/packages/lf20_ygiuluqn.json"
+        background="transparent"
+        speed="1"
+        style="width: 320px; height: 320px;"
+        loop autoplay>
+      </lottie-player>
+    </div>
+
+    <!-- Form Section -->
+    <div class="flex-1 w-full max-w-md">
+
+      <h1 class="text-3xl font-bold mb-6 text-center text-gray-900">Welcome to Join</h1>
+
+      <!-- Toggle Buttons -->
+      <div class="flex justify-center mb-8 space-x-8 text-gray-600 cursor-pointer select-none">
+        <div id="loginToggle" class="toggle-active">Login</div>
+        <div id="signupToggle">Signup</div>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="">
+        <div class="mb-5">
+          <label for="loginEmail" class="block mb-2 font-medium text-gray-700">Email</label>
+          <input type="email" id="loginEmail" required placeholder="your.email@example.com"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+        <div class="mb-6">
+          <label for="loginPassword" class="block mb-2 font-medium text-gray-700">Password</label>
+          <input type="password" id="loginPassword" required placeholder="Enter your password"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+        <button type="submit"
+                class="w-full bg-indigo-600 text-white py-3 rounded-md font-semibold hover:bg-indigo-700 transition-colors duration-300">
+          Login
+        </button>
+      </form>
+
+      <!-- Signup Form -->
+      <form id="signupForm" class="hidden">
+        <div class="mb-5">
+          <label for="signupName" class="block mb-2 font-medium text-gray-700">Full Name</label>
+          <input type="text" id="signupName" required placeholder="Your full name"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+        <div class="mb-5">
+          <label for="signupEmail" class="block mb-2 font-medium text-gray-700">Email</label>
+          <input type="email" id="signupEmail" required placeholder="your.email@example.com"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+        <div class="mb-6">
+          <label for="signupPassword" class="block mb-2 font-medium text-gray-700">Password</label>
+          <input type="password" id="signupPassword" required placeholder="Create a password"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+        <button type="submit"
+                class="w-full bg-indigo-600 text-white py-3 rounded-md font-semibold hover:bg-indigo-700 transition-colors duration-300">
+          Signup
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    const loginToggle = document.getElementById('loginToggle');
+    const signupToggle = document.getElementById('signupToggle');
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+
+    loginToggle.addEventListener('click', () => {
+      loginForm.classList.remove('hidden');
+      signupForm.classList.add('hidden');
+      loginToggle.classList.add('toggle-active');
+      signupToggle.classList.remove('toggle-active');
+    });
+
+    signupToggle.addEventListener('click', () => {
+      signupForm.classList.remove('hidden');
+      loginForm.classList.add('hidden');
+      signupToggle.classList.add('toggle-active');
+      loginToggle.classList.remove('toggle-active');
+    });
+
+    loginForm.addEventListener('submit', e => {
+      e.preventDefault();
+      alert('Login form submitted');
+      loginForm.reset();
+    });
+
+    signupForm.addEventListener('submit', e => {
+      e.preventDefault();
+      alert('Signup form submitted');
+      signupForm.reset();
+    });
+  </script>
+
+</body>
+</html>
+

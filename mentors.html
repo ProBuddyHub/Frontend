@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StartupHub | Empower Your Startup Journey</title>
+  
+<script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+  <!-- AOS Stylesheet -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+
+<!-- AOS Script -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+  
+  <!-- AOS for scroll animations -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <!-- Lottie Player -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+
+
+  <style>
+    /* Custom global styles */
+    body {
+      background-color: white;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    /* Custom cursor */
+    .cursor {
+      position: fixed;
+      top: 0; left: 0;
+      width: 20px; height: 20px;
+      background-color: rgba(59, 130, 246, 0.7);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+      z-index: 9999;
+      mix-blend-mode: difference;
+    }
+    .cursor.active {
+      width: 40px;
+      height: 40px;
+      background-color: rgba(59, 130, 246, 0.9);
+    }
+    /* Subtle background animation */
+    .background-blur {
+      position: fixed;
+      top: -100px; left: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle at center, #3b82f6, transparent 70%);
+      filter: blur(100px);
+      opacity: 0.3;
+      animation: moveBlur 20s ease-in-out infinite alternate;
+      z-index: -1;
+      border-radius: 50%;
+    }
+    @keyframes moveBlur {
+      0% { transform: translate(0,0); }
+      100% { transform: translate(100px, 50px); }
+    }
+    
+    
+  </style>
+  
+  <style>
+  /* Hide default scrollbar */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Additional hover effects */
+  .testimonial-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .testimonial-card:hover {
+    transform: scale(1.07) translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .testimonial-card:hover .client-name {
+    color: #3b82f6; /* Tailwind blue-500 */
+  }
+</style>
+
+</head>
+<body>
+
+<header x-data="{ open: false }" class="sticky top-0 z-50 bg-gray-900 shadow-md">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center text-white font-bold text-xl tracking-wide hover:text-indigo-400 transition">
+        StartupHub
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex space-x-8">
+        <a href="home.html" class="text-gray-300 hover:text-indigo-400 transition">Home</a>
+        <a href="about.html" class="text-gray-300 hover:text-indigo-400 transition">About</a>
+        <a href="startups.html" class="text-gray-300 hover:text-indigo-400 transition">Startups</a>
+        <a href="events.html" class="text-gray-300 hover:text-indigo-400 transition">Events</a>
+        <a href="blog.html" class="text-gray-300 hover:text-indigo-400 transition">Blog</a>
+        <a href="support.html" class="text-gray-300 hover:text-indigo-400 transition">Support</a>
+        <a href="mentors.html" class="text-gray-300 hover:text-indigo-400 transition">Mentors</a>
+        <a href="community.html" class="text-gray-300 hover:text-indigo-400 transition">Community</a>
+        <a href="contact.html" class="text-gray-300 hover:text-indigo-400 transition">Contact</a>
+      </nav>
+
+      <!-- Join Now Button -->
+      <div class="hidden md:flex">
+        <a href="join.html" 
+           class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-md font-semibold hover:bg-indigo-500 transition">
+          Join Now
+        </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button @click="open = !open" class="md:hidden flex items-center text-gray-300 hover:text-indigo-400 focus:outline-none">
+        <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg x-show="open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Mobile Nav Menu -->
+  <nav x-show="open" 
+       x-transition 
+       @click.away="open = false" 
+       class="md:hidden bg-gray-800 text-gray-300 space-y-2 px-4 py-4">
+    <a href="home.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">Home</a>
+    <a href="about.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">About</a>
+    <a href="startups.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">Startups</a>
+    <a href="events.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">Events</a>
+    <a href="blog.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">Blog</a>
+    <a href="support.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">Support</a>
+    <a href="mentors.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">Mentors</a>
+    <a href="community.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">Community</a>
+    <a href="contact.html" class="block px-2 py-2 rounded hover:bg-indigo-600 hover:text-white transition">Contact</a>
+    <a href="join.html" class="block bg-indigo-600 text-white px-4 py-2 rounded-md font-semibold text-center hover:bg-indigo-500 transition">Join Now</a>
+  </nav>
+</header>
+
+
+  <div class="background-blur"></div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+
+  <main class="container mx-auto px-6 lg:px-20 min-h-screen flex items-center">
+    <section class="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
+    
+    
+    <section class="w-full min-h-screen bg-gray-100 py-20 relative overflow-hidden">
+
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 z-0 bg-[radial-gradient(#00000010_1px,transparent_1px)] [background-size:20px_20px]"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 text-center">
+    <h2 class="text-4xl font-bold text-blue-800 mb-2">Meet Our Mentors</h2>
+    <p class="text-gray-600 mb-12">Guiding lights in innovation and entrepreneurship.</p>
+
+    <!-- Mentor Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Mentor Card -->
+      <div class="bg-white rounded-xl shadow-md p-6 flex flex-col items-center text-center hover:shadow-xl transition">
+        <img src="https://source.unsplash.com/120x120/?face,man" class="w-24 h-24 rounded-full mb-4 object-cover" alt="Mentor Image" />
+        <h3 class="font-semibold text-lg text-blue-700">Dr. Arjun Rao</h3>
+        <p class="text-sm text-gray-500">AI & Robotics Specialist</p>
+        <p class="text-xs text-gray-400 mt-2">15+ years of experience in applied AI and machine learning systems.</p>
+      </div>
+
+      <!-- Mentor Card -->
+      <div class="bg-white rounded-xl shadow-md p-6 flex flex-col items-center text-center hover:shadow-xl transition">
+        <img src="https://source.unsplash.com/120x120/?face,woman" class="w-24 h-24 rounded-full mb-4 object-cover" alt="Mentor Image" />
+        <h3 class="font-semibold text-lg text-blue-700">Ms. Kavya Mehta</h3>
+        <p class="text-sm text-gray-500">Startup Strategist</p>
+        <p class="text-xs text-gray-400 mt-2">Helped launch over 30 successful tech startups globally.</p>
+      </div>
+
+      <!-- Mentor Card -->
+      <div class="bg-white rounded-xl shadow-md p-6 flex flex-col items-center text-center hover:shadow-xl transition">
+        <img src="https://source.unsplash.com/120x120/?face,man,2" class="w-24 h-24 rounded-full mb-4 object-cover" alt="Mentor Image" />
+        <h3 class="font-semibold text-lg text-blue-700">Prof. Nitin Kulkarni</h3>
+        <p class="text-sm text-gray-500">Product Design Lead</p>
+        <p class="text-xs text-gray-400 mt-2">Mentor at MIT Design Labs and advisor for multiple design-centric startups.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+    </main>
+    
+    <section class="w-full bg-white py-20 relative overflow-hidden">
+
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 bg-[radial-gradient(#0000000c_1px,transparent_1px)] [background-size:18px_18px] z-0"></div>
+
+  <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold text-blue-800 mb-4">Words From Mentees</h2>
+    <p class="text-gray-500 mb-12">Hear how our mentors have impacted real projects and careers.</p>
+
+    <!-- Testimonial Slider -->
+    <div id="testimonial-slider" class="flex transition-transform duration-500 ease-in-out space-x-8 overflow-x-auto px-4 no-scrollbar">
+      <!-- Testimonial Card -->
+      <div class="min-w-[300px] bg-blue-50 rounded-xl p-6 shadow-md">
+        <p class="text-gray-700 italic">"Dr. Rao guided our robotics team from prototype to production. We owe our success to his insights!"</p>
+        <div class="mt-4 text-left">
+          <h4 class="font-semibold text-blue-800">Aditya Jain</h4>
+          <p class="text-sm text-gray-500">Team Leader, NovaBots</p>
+        </div>
+      </div>
+
+      <!-- Testimonial Card -->
+      <div class="min-w-[300px] bg-purple-50 rounded-xl p-6 shadow-md">
+        <p class="text-gray-700 italic">"Kavya Ma'am helped us refine our pitch and scale efficiently. Her advice was a game-changer."</p>
+        <div class="mt-4 text-left">
+          <h4 class="font-semibold text-blue-800">Shreya Patil</h4>
+          <p class="text-sm text-gray-500">Founder, GenZConnect</p>
+        </div>
+      </div>
+
+      <!-- Testimonial Card -->
+      <div class="min-w-[300px] bg-green-50 rounded-xl p-6 shadow-md">
+        <p class="text-gray-700 italic">"Prof. Nitin encouraged us to focus on user-centric design. Our UX improved dramatically."</p>
+        <div class="mt-4 text-left">
+          <h4 class="font-semibold text-blue-800">Rahul Deshmukh</h4>
+          <p class="text-sm text-gray-500">UI Designer, MechFlow</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="w-full py-20 bg-white relative overflow-hidden">
+  <!-- Pattern Background -->
+  <div class="absolute inset-0 bg-[radial-gradient(#dbeafe_1px,transparent_1px)] [background-size:20px_20px] opacity-50 z-0"></div>
+
+  <!-- CTA Box -->
+  <div class="relative z-10 max-w-4xl mx-auto text-center px-6 py-14 bg-blue-50 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+    <h2 class="text-3xl font-bold text-blue-800 mb-4">Become a Mentor</h2>
+    <p class="text-gray-600 mb-6">Join our mission to guide the next generation of innovators. Share your expertise, support creativity, and shape future leaders.</p>
+    <a href="#" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-full shadow hover:bg-blue-700 transition">Apply Now</a>
+  </div>
+</section>
+
+    
+    
+    <footer class="bg-gray-900 text-white py-16 relative overflow-hidden">
+  <!-- Decorative background elements -->
+  <div class="absolute top-[-4rem] left-[-5rem] w-72 h-72 bg-purple-700 opacity-20 rounded-full blur-3xl -z-10"></div>
+  <div class="absolute bottom-[-5rem] right-[-5rem] w-96 h-96 bg-blue-500 opacity-10 rounded-full blur-2xl -z-10"></div>
+
+  <div class="max-w-7xl mx-auto px-6 md:px-20 grid md:grid-cols-3 gap-12">
+
+    <!-- Connect With Us -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4 text-blue-400">Connect With Us</h3>
+      <ul class="space-y-3 text-gray-300 text-sm">
+        <li class="flex items-start gap-3">
+          <i class="fa-solid fa-envelope text-blue-300 pt-1"></i>
+          <span>hello@startuphub.com</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <i class="fa-solid fa-phone text-blue-300 pt-1"></i>
+          <span>+91 98765 43210</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <i class="fa-solid fa-location-dot text-blue-300 pt-1"></i>
+          <span>Chennai, Tamil Nadu, India</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Newsletter Subscription -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4 text-blue-400">Stay Updated</h3>
+      <p class="text-gray-400 text-sm mb-4">Join our newsletter to receive the latest startup trends and updates.</p>
+      <form class="flex flex-col sm:flex-row gap-3">
+        <input type="email" placeholder="Enter your email"
+          class="w-full px-4 py-3 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+        <button
+          class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-full transition hover:scale-105 text-sm">
+          Subscribe
+        </button>
+      </form>
+    </div>
+
+    <!-- Footer Notes -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4 text-blue-400">Let's Get Social</h3>
+      <p class="text-gray-400 text-sm mb-4">Follow us and stay connected with the community.</p>
+      <div class="flex gap-5 text-xl">
+        <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Divider -->
+  <div class="mt-14 border-t border-gray-700 pt-6 text-center text-gray-500 text-xs max-w-7xl mx-auto px-6 md:px-20">
+    &copy; 2025 StartupHub. All rights reserved.
+  </div>
+</footer>
+
+
+
+
+
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    // Initialize AOS library
+    AOS.init({
+      once: true,
+      easing: 'ease-out-cubic',
+      duration: 1000,
+    });
+
+    // Custom cursor logic
+    const cursor = document.getElementById('cursor');
+    window.addEventListener('mousemove', e => {
+      cursor.style.top = e.clientY + 'px';
+      cursor.style.left = e.clientX + 'px';
+    });
+
+    // Cursor active state on buttons
+    const buttons = document.querySelectorAll('a, button');
+    buttons.forEach(btn => {
+      btn.addEventListener('mouseenter', () => cursor.classList.add('active'));
+      btn.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+    });
+
+    // GSAP entry animation for headline & buttons
+    gsap.from("h1", { y: -50, opacity: 0, duration: 1, ease: "power3.out" });
+    gsap.from("p", { y: 50, opacity: 0, duration: 1, delay: 0.2, ease: "power3.out" });
+    gsap.from(".btn-primary", { scale: 0.8, opacity: 0, duration: 0.7, delay: 0.4, ease: "back.out(1.7)" });
+    gsap.from(".btn-secondary", { scale: 0.8, opacity: 0, duration: 0.7, delay: 0.6, ease: "back.out(1.7)" });
+  </script>
+  
+  <script>
+  // Initialize AOS animations
+  AOS.init({
+    duration: 1200,
+    once: true,
+  });
+</script>
+
+
+</body>
+</html>
+
